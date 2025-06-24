@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}シフト確認{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='shift.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="header-line"></div>
+  <div class="year">{{ year }}</div>
+  <div class="month">{{ month }}月</div>
+
+  <table class="calendar">
+    <thead>
+      <tr>
+        <th class="sun">SUN</th><th>MON</th><th>TUE</th>
+        <th>WED</th><th>THU</th><th>FRI</th><th class="sat">SAT</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for week in weeks %}
+      <tr>
+        {% for day in week %}
+        <td class="{% if loop.index0 == 0 %}sun{% elif loop.index0 == 6 %}sat{% endif %}">
+          {% if day != 0 %}
+            <span data-day="{{ day }}">{{ day }}</span>
+          {% else %}
+            &nbsp;
+          {% endif %}
+        </td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="selected-date" id="selected-date"></p>  {# 空にしておく #}
+  <p class="shift-time" id="shift-time"></p>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const year = {{ year }};
+    const month = {{ month }};
+    const dayCells = document.querySelectorAll('.calendar td span');
+    const selectedDateElem = document.getElementById('selected-date');
+    const shiftDisplay = document.getElementById('shift-time');
+
+    dayCells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        // 選択解除
+        document.querySelectorAll('.calendar td span.selected')
+                .forEach(s => s.classList.remove('selected'));
+        cell.classList.add('selected');
+
+        const day = String(cell.dataset.day).padStart(2, '0');
+        const dateStr = `${year}-${String(month).padStart(2, '0')}-${day}`;
+        const displayDate = `${month}月${parseInt(cell.dataset.day)}日`;
+
+        // selected-dateは空にする
+        selectedDateElem.textContent = '';
+
+        // シフト情報に日付含めて表示
+        shiftDisplay.textContent = '読み込み中…';
+
+        fetch(`/get_shift?date=${dateStr}`)
+          .then(res => res.json())
+          .then(data => {
+            if (data.shift_code) {
+              shiftDisplay.textContent = data.work_time && data.work_time.trim()
+                ? `${displayDate}　${data.shift_code}　${data.work_time}`
+                : `${displayDate}　${data.shift_code}`;
+            } else {
+              shiftDisplay.textContent = `${displayDate}　シフト情報なし`;
+            }
+          })
+          .catch(err => {
+            shiftDisplay.textContent = `${displayDate}　取得エラー`;
+            console.error(err);
+          });
+      });
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>スプラッシュ画面</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #c41e1e;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    img {
+      max-width: 90%;
+      max-height: 90%;
+      opacity: 0;
+      animation: fadeInOut 3s ease-in-out forwards;
+    }
+
+    @keyframes fadeInOut {
+      0%   { opacity: 0; transform: scale(0.95); }
+      20%  { opacity: 1; transform: scale(1.0); }
+      80%  { opacity: 1; transform: scale(1.0); }
+      100% { opacity: 0; transform: scale(1.05); }
+    }
+
+  </style>
+
+  <script>
+    setTimeout(() => {
+      window.location.href = "/login";
+    }, 3000);
+  </script>
+</head>
+<body>
+  <img src="{{ url_for('static', filename='logo.png') }}" alt="スプラッシュ画像">
+</body>
+</html>

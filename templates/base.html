@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>{% block title %}三茶勤怠アプリ{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+  <div class="main">
+    {% block content %}{% endblock %}
+  </div>
+
+  <div class="footer">
+    <a href="/shift">シフト</a> ｜ 
+    <a href="/attendance">勤怠連絡</a> ｜ 
+    <a href="/notices">お知らせ</a>
+  </div>
+
+  {% block scripts %}{% endblock %}
+
+</body>
+</html>

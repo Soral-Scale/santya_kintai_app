@@ -1,0 +1,164 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #dbddd9;
+  color: #3d3b3b;
+  text-align: center;
+}
+
+.title {
+  background: #33a198;
+  color: #eeeded;
+  font-size: 22px;
+  font-weight: bold;
+  padding: 12px 0;
+  margin: 20px 0;
+  border-top: 1px solid #032c25;
+  border-bottom: 1px solid #032c25;
+}
+
+.option-group {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.option-group input[type="radio"] {
+  display: none;
+}
+
+.option-group label {
+  display: block;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 25px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-group input[type="radio"]:checked + label {
+  background-color: #4fada6;
+  color: #fff;
+  border-color: #24786f;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.form-box {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 0 20px;
+  text-align: left;
+  margin-bottom: 60px;
+}
+
+.section {
+  margin-bottom: 25px;
+}
+
+.section label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #444;
+}
+
+.radio-group {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.radio-group label {
+  font-size: 16px;
+  font-weight: normal;
+}
+
+textarea {
+  background-color: #eef1f1;    
+  width: 95%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #0d3b31;
+  border-radius: 6px;
+  resize: vertical;
+  min-height: 150px;
+  font-family: sans-serif;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #095a4f;
+  font-weight: bold;
+  color: white;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #34b1aa;
+}
+
+.done-box {
+  max-width: 400px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  text-align: center;
+}
+
+.done-message {
+  font-size: 20px;
+  color: #24786f;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.done-sub {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 25px;
+}
+
+.toast {
+  visibility: hidden;
+  min-width: 250px;
+  color: #fff;
+  text-align: center;
+  border-radius: 8px;
+  padding: 16px;
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 16px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.5s, bottom 0.5s;
+  z-index: 1000;
+}
+
+.toast.show {
+  visibility: visible;
+  opacity: 1;
+  bottom: 100px;
+}
+
+.toast.success {
+  background-color: #33a198; 
+}
+
+.toast.error {
+  background-color: #b9624d; 
+}

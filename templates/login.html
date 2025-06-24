@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>三茶勤怠アプリ - ログイン</title>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='login.css') }}">
+</head>
+<body>
+
+  <div class="login">
+    <svg xmlns="http://www.w3.org/2000/svg" class="site__logo" width="65" height="65" fill="#5a9bd5" viewBox="0 0 24 24">
+      <path d="M17 8h-1V6a4 4 0 00-8 0v2H7a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V10a2 2 0 00-2-2zM10 6a2 2 0 014 0v2h-4V6zm7 14H7V10h10v10z"/>
+    </svg>
+    <h1>TC_Santya App</h1>
+    <form method="post" action="/login">
+      <input type="text" name="user_id" placeholder="ユーザーID" required />
+      <input type="password" name="password" placeholder="パスワード" required />
+      <button type="submit" class="btn">ログイン</button>
+    </form>
+
+    {% if error %}
+      <p style="color: red;">{{ error }}</p>
+    {% endif %}
+  </div>
+
+</body>
+</html>

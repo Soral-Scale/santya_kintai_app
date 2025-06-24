@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}お知らせ一覧{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='notice.css') }}">
+{% endblock %}
+
+{% block content %}
+  <div class="title">お知らせ</div>
+
+  <div class="notice-list">
+    {% for notice in notices %}
+      <div class="notice-item {% if notice.read_flag == 0 %}unread{% endif %}" data-title="{{ notice.title }}">
+        <div class="notice-title">
+          {% if notice.read_flag == 0 %}<span class="badge">NEW</span>{% endif %}
+          {{ notice.title }}
+        </div>
+        <div class="notice-date">{{ notice.date }}</div>
+        <div class="notice-message">{{ notice.message }}</div>
+      </div>
+    {% endfor %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.querySelectorAll('.notice-item.unread').forEach(item => {
+      item.addEventListener('click', () => {
+        const title = item.dataset.title;
+
+        fetch('/mark_notice_read', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('access_token')  // 必要に応じて
+          },
+          body: JSON.stringify({ title })
+        })
+        .then(res => res.json())
+        .then(data => {
+          const toast = document.createElement('div');
+          toast.className = 'toast show';
+          toast.innerText = '既読にしました';
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+          item.classList.remove('unread');
+          const badge = item.querySelector('.badge');
+          if (badge) badge.remove();
+        });
+      });
+    });
+  </script>
+{% endblock %}

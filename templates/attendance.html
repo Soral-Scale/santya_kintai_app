@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}勤怠連絡{% endblock %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='attendance.css') }}">
+{% endblock %}
+
+{% block content %}
+    <h1 class="title">勤怠連絡</h1>
+
+    <form method="post" class="form-box">
+
+        <div class="section">
+        <label>◆勤務日</label>
+        <div class="option-group">
+            <input type="radio" id="today" name="date" value="today" required hidden>
+            <label for="today">当日</label>
+
+            <input type="radio" id="tomorrow" name="date" value="tomorrow" hidden>
+            <label for="tomorrow">翌日</label>
+        </div>
+        </div>
+
+        <div class="section">
+        <label>◆内容</label>
+        <div class="option-group">
+            <input type="radio" id="late" name="status" value="late" required hidden>
+            <label for="late">遅刻</label>
+
+            <input type="radio" id="absent" name="status" value="absent" hidden>
+            <label for="absent">欠勤</label>
+
+            <input type="radio" id="other" name="status" value="other" hidden>
+            <label for="other">その他</label>
+        </div>
+        </div>
+
+      <div class="section">
+        <label for="memo">◆詳細</label>
+        <textarea id="memo" name="memo" placeholder="例：発熱のため欠勤"></textarea>
+      </div>
+
+      <button type="submit" class="btn">送信</button>
+    </form>
+    {% if sent %}
+        <div id="toast" class="toast success">✅ 勤怠連絡を受け付けました。</div>
+    {% elif error %}
+        <div id="toast" class="toast error">❗項目を全て入力してください。</div>
+    {% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const toast = document.getElementById('toast');
+    if (toast) {
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+  });
+</script>
+{% endblock %}
+
+</html>
