@@ -33,8 +33,8 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + localStorage.getItem('access_token')  // 必要に応じて
           },
+          credentials: 'same-origin',
           body: JSON.stringify({ title })
         })
         .then(res => res.json())
