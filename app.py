@@ -20,8 +20,8 @@ jwt = JWTManager(app)
 # =======================================
 # 設定・共通処理
 # =======================================
-DATA_DIR = 'data'  # データフォルダをまとめる場合
 
+DATA_DIR = 'data'  # データフォルダをまとめる場合
 
 def load_excel(filename):
     return pd.read_excel(os.path.join(DATA_DIR, filename))
